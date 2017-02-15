@@ -1,7 +1,7 @@
 package me.mscandella.mga.library.controllers;
 
 import me.mscandella.mga.library.services.CatalogService;
-import me.mscandella.mga.library.models.Book;
+import me.mscandella.mga.library.models.BookWithRating;
 import me.mscandella.mga.library.models.BorrowData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,7 @@ public class CatalogController {
 
     @RequestMapping("/catalog")
     public String catalog(ModelMap model) {
-        List<Book> books = catalogService.getAllBooks();
+        List<BookWithRating> books = catalogService.getAllBooks();
         model.addAttribute("books", books);
         model.addAttribute("data", new BorrowData());
         return "catalog";

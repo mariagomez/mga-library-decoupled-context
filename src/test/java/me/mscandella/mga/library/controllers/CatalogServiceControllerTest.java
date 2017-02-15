@@ -1,8 +1,8 @@
 package me.mscandella.mga.library.controllers;
 
 import me.mscandella.mga.library.services.CatalogService;
-import me.mscandella.mga.library.dao.Item;
-import me.mscandella.mga.library.models.Book;
+import me.mscandella.mga.library.dao.Book;
+import me.mscandella.mga.library.models.BookWithRating;
 import me.mscandella.mga.library.repositories.BookRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,8 +43,8 @@ public class CatalogServiceControllerTest {
 
     @Test
     public void shouldReturnAListOfBooks() throws Exception {
-        Book book = new Book(1l, name, author, description, rating, imagePath, available);
-        List<Book> books = Arrays.asList(book);
+        BookWithRating book = new BookWithRating(1l, name, author, description, rating, imagePath, available);
+        List<BookWithRating> books = Arrays.asList(book);
         when(catalogService.getAllBooks()).thenReturn(books);
 
         mockMvc.perform(get("/catalog"))
@@ -55,7 +55,7 @@ public class CatalogServiceControllerTest {
 
     @Test
     public void shouldRedirectToCatalogAfterBorrow() throws Exception {
-        when(bookRepository.findOne(anyLong())).thenReturn(any(Item.class));
+        when(bookRepository.findOne(anyLong())).thenReturn(any(Book.class));
         mockMvc.perform(post("/catalog/borrow", 1L))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/catalog"));

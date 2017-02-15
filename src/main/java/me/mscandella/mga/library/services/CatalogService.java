@@ -1,8 +1,10 @@
 package me.mscandella.mga.library.services;
 
-import me.mscandella.mga.library.dao.Item;
-import me.mscandella.mga.library.models.Book;
+import me.mscandella.mga.library.dao.Book;
+import me.mscandella.mga.library.dao.Rating;
+import me.mscandella.mga.library.models.BookWithRating;
 import me.mscandella.mga.library.repositories.BookRepository;
+import me.mscandella.mga.library.repositories.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,20 +17,26 @@ public class CatalogService {
 
     @Autowired
     private BookRepository bookRepository;
+    @Autowired
+    private RatingRepository ratingRepository;
 
-    public List<Book> getAllBooks() {
-        Iterable<Item> items = bookRepository.findAll();
+    public List<BookWithRating> getAllBooks() {
+        Iterable<Book> items = bookRepository.findAll();
         return StreamSupport.stream(items.spliterator(), false)
-                    .map(item -> new Book(item.getId(), item.getName(), item.getAuthor(), item.getDescription(), item.getRating(),
-                            item.getImagePath(), item.isAvailable()))
+                    .map(book -> {
+                        Rating rating = ratingRepository.findOne(book.getId());
+                        return new BookWithRating(book.getId(), book.getName(), book.getAuthor(),
+                                book.getDescription(), rating.getRating(),
+                                book.getImagePath(), book.isAvailable());
+                    })
                     .collect(Collectors.toList());
     }
 
-    public Book borrowBook(Long id) {
-        Item book = bookRepository.findOne(id);
+    public BookWithRating borrowBook(Long id) {
+        Book book = bookRepository.findOne(id);
         book.setAvailable(false);
-        Item savedItem = bookRepository.save(book);
-        return new Book(savedItem.getId(), savedItem.getName(), savedItem.getAuthor(), savedItem.getDescription(),
-                savedItem.getRating(), savedItem.getImagePath(), savedItem.isAvailable());
+        Book savedBook = bookRepository.save(book);
+        return new BookWithRating(savedBook.getId(), savedBook.getName(), savedBook.getAuthor(), savedBook.getDescription(),
+                savedBook.getRating(), savedBook.getImagePath(), savedBook.isAvailable());
     }
 }

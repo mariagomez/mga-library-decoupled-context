@@ -5,7 +5,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import me.mscandella.mga.library.services.CatalogService;
 import me.mscandella.mga.library.controllers.CatalogController;
 import me.mscandella.mga.library.controllers.IndexController;
-import me.mscandella.mga.library.models.Book;
+import me.mscandella.mga.library.models.BookWithRating;
 import me.mscandella.mga.library.repositories.BookRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +34,7 @@ public class IndexPageTest {
 
     @Test
     public void shouldShowCatalogWhenRequestingIndex() throws Exception {
-        Book book = mock(Book.class);
+        BookWithRating book = mock(BookWithRating.class);
         given(catalogService.getAllBooks()).willReturn(Arrays.asList(book));
 
         HtmlPage page = this.webClient.getPage("/");

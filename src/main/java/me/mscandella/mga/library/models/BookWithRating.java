@@ -1,6 +1,6 @@
 package me.mscandella.mga.library.models;
 
-public class Book {
+public class BookWithRating {
     private Long id;
     private final String name;
     private final String author;
@@ -9,7 +9,7 @@ public class Book {
     private final String imagePath;
     private final boolean available;
 
-    public Book(Long id, String name, String author, String description, int rating, String imagePath, boolean available) {
+    public BookWithRating(Long id, String name, String author, String description, int rating, String imagePath, boolean available) {
         this.id = id;
         this.name = name;
         this.author = author;

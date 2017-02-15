@@ -1,8 +1,10 @@
 package me.mscandella.mga.library.services;
 
-import me.mscandella.mga.library.dao.Item;
-import me.mscandella.mga.library.models.Book;
+import me.mscandella.mga.library.dao.Book;
+import me.mscandella.mga.library.dao.Rating;
+import me.mscandella.mga.library.models.BookWithRating;
 import me.mscandella.mga.library.repositories.BookRepository;
+import me.mscandella.mga.library.repositories.RatingRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +22,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -31,31 +34,37 @@ public class CatalogServiceTest {
     private CatalogService catalogService;
     @MockBean
     private BookRepository bookRepository;
-    private Item item;
+    @MockBean
+    private RatingRepository ratingRepository;
+    private Book book;
+    private Rating rating;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        item = new Item("Name", "Author", "Description", 1,
+        book = new Book("Name", "Author", "Description", 1,
                 true, "path");
+        rating = new Rating(3);
     }
 
     @Test
-    public void shouldReturnAllBooks() throws Exception {
-        Iterable<Item> items = new ArrayList<>();
+    public void shouldReturnAllBooksWithRating() throws Exception {
+        Iterable<Book> items = new ArrayList<>();
         when(bookRepository.findAll()).thenReturn(items);
-        List<Book> books = catalogService.getAllBooks();
+        when(ratingRepository.findOne(anyLong())).thenReturn(rating);
+        List<BookWithRating> books = catalogService.getAllBooks();
 
         assertThat(books, is(notNullValue()));
     }
 
     @Test
     public void shouldReturnValidValuesForTheBook() throws Exception {
-        Book expectedBook = new Book(item.getId(), item.getName(), item.getAuthor(),
-                item.getDescription(), item.getRating(), item.getImagePath(), item.isAvailable());
-        Iterable<Item> items = Arrays.asList(item);
+        when(ratingRepository.findOne(anyLong())).thenReturn(rating);
+        BookWithRating expectedBook = new BookWithRating(book.getId(), book.getName(), book.getAuthor(),
+                book.getDescription(), rating.getRating(), book.getImagePath(), book.isAvailable());
+        Iterable<Book> items = Arrays.asList(book);
         when(bookRepository.findAll()).thenReturn(items);
-        List<Book> books = catalogService.getAllBooks();
+        List<BookWithRating> books = catalogService.getAllBooks();
 
         assertThat(books, is(notNullValue()));
         assertThat(books.get(0), samePropertyValuesAs(expectedBook));
@@ -64,11 +73,11 @@ public class CatalogServiceTest {
     @Test
     public void shouldModifyAvailabilityOfBooks() throws Exception {
         long bookId = 1L;
-        when(bookRepository.findOne(bookId)).thenReturn(item);
-        Item borrowedItem = new Item(item.getName(), item.getAuthor(), item.getDescription(),
-                item.getRating(), false, item.getImagePath());
-        when(bookRepository.save(any(Item.class))).thenReturn(borrowedItem);
-        Book book = catalogService.borrowBook(bookId);
+        when(bookRepository.findOne(bookId)).thenReturn(book);
+        Book borrowedBook = new Book(book.getName(), book.getAuthor(), book.getDescription(),
+                book.getRating(), false, book.getImagePath());
+        when(bookRepository.save(any(Book.class))).thenReturn(borrowedBook);
+        BookWithRating book = catalogService.borrowBook(bookId);
         assertThat(book.isAvailable(), is(false));
     }
 }

@@ -3,7 +3,7 @@ package me.mscandella.mga.library.dao;
 import javax.persistence.*;
 
 @Entity
-public class Item {
+public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,10 +17,10 @@ public class Item {
     private boolean available;
     private String imagePath;
 
-    protected Item() {
+    protected Book() {
     }
 
-    public Item(String name, String author, String description, int rating, boolean available, String imagePath) {
+    public Book(String name, String author, String description, int rating, boolean available, String imagePath) {
         this.name = name;
         this.author = author;
         this.description = description;

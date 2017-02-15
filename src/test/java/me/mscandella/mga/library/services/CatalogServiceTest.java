@@ -74,8 +74,9 @@ public class CatalogServiceTest {
     public void shouldModifyAvailabilityOfBooks() throws Exception {
         long bookId = 1L;
         when(bookRepository.findOne(bookId)).thenReturn(book);
+        when(ratingRepository.findOne(anyLong())).thenReturn(rating);
         Book borrowedBook = new Book(book.getName(), book.getAuthor(), book.getDescription(),
-                book.getRating(), false, book.getImagePath());
+                rating.getRating(), false, book.getImagePath());
         when(bookRepository.save(any(Book.class))).thenReturn(borrowedBook);
         BookWithRating book = catalogService.borrowBook(bookId);
         assertThat(book.isAvailable(), is(false));

@@ -36,7 +36,8 @@ public class CatalogService {
         Book book = bookRepository.findOne(id);
         book.setAvailable(false);
         Book savedBook = bookRepository.save(book);
+        Rating rating = ratingRepository.findOne(book.getId());
         return new BookWithRating(savedBook.getId(), savedBook.getName(), savedBook.getAuthor(), savedBook.getDescription(),
-                savedBook.getRating(), savedBook.getImagePath(), savedBook.isAvailable());
+                rating.getRating(), savedBook.getImagePath(), savedBook.isAvailable());
     }
 }

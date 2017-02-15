@@ -13,7 +13,6 @@ public class Book {
     private String author;
     @Lob
     private String description;
-    private int rating;
     private boolean available;
     private String imagePath;
 
@@ -24,7 +23,6 @@ public class Book {
         this.name = name;
         this.author = author;
         this.description = description;
-        this.rating = rating;
         this.available = available;
         this.imagePath = imagePath;
     }
@@ -39,10 +37,6 @@ public class Book {
 
     public String getDescription() {
         return description;
-    }
-
-    public int getRating() {
-        return rating;
     }
 
     public boolean isAvailable() {

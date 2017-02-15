@@ -2,7 +2,7 @@ package me.mscandella.mga.library;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import me.mscandella.mga.library.aggregates.Catalog;
+import me.mscandella.mga.library.services.CatalogService;
 import me.mscandella.mga.library.controllers.CatalogController;
 import me.mscandella.mga.library.controllers.IndexController;
 import me.mscandella.mga.library.models.Book;
@@ -28,14 +28,14 @@ public class IndexPageTest {
     private WebClient webClient;
 
     @MockBean
-    private Catalog catalog;
+    private CatalogService catalogService;
     @MockBean
     private BookRepository bookRepository;
 
     @Test
     public void shouldShowCatalogWhenRequestingIndex() throws Exception {
         Book book = mock(Book.class);
-        given(catalog.getAllBooks()).willReturn(Arrays.asList(book));
+        given(catalogService.getAllBooks()).willReturn(Arrays.asList(book));
 
         HtmlPage page = this.webClient.getPage("/");
         assertThat(page.getBody().getTextContent()).contains("Catalog");

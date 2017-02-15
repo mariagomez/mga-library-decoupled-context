@@ -1,10 +1,8 @@
 package me.mscandella.mga.library.controllers;
 
-import me.mscandella.mga.library.aggregates.Catalog;
-import me.mscandella.mga.library.dao.Item;
+import me.mscandella.mga.library.services.CatalogService;
 import me.mscandella.mga.library.models.Book;
 import me.mscandella.mga.library.models.BorrowData;
-import me.mscandella.mga.library.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,14 +16,11 @@ import java.util.List;
 public class CatalogController {
 
     @Autowired
-    private BookRepository bookRepository;
-
-    @Autowired
-    private Catalog catalog;
+    private CatalogService catalogService;
 
     @RequestMapping("/catalog")
     public String catalog(ModelMap model) {
-        List<Book> books = catalog.getAllBooks();
+        List<Book> books = catalogService.getAllBooks();
         model.addAttribute("books", books);
         model.addAttribute("data", new BorrowData());
         return "catalog";
@@ -33,9 +28,7 @@ public class CatalogController {
 
     @PostMapping("/catalog/borrow")
     public String borrow(@ModelAttribute BorrowData data) {
-        Item book = bookRepository.findOne(data.getId());
-        book.setAvailable(false);
-        bookRepository.save(book);
+        catalogService.borrowBook(data.getId());
         return "redirect:/catalog";
     }
 }

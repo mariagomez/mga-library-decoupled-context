@@ -24,13 +24,17 @@ public class CatalogController {
     @RequestMapping("/catalog")
     public String catalog(ModelMap model) {
         Iterable<Item> items = bookRepository.findAll();
-        List<Book> books = StreamSupport.stream(items.spliterator(), false)
-                .map(item -> new Book(item.getId(), item.getName(), item.getAuthor(), item.getDescription(), item.getRating(),
-                        item.getImagePath(), item.isAvailable()))
-                .collect(Collectors.toList());
+        List<Book> books = getAllBooks(items);
         model.addAttribute("books", books);
         model.addAttribute("data", new BorrowData());
         return "catalog";
+    }
+
+    private List<Book> getAllBooks(Iterable<Item> items) {
+        return StreamSupport.stream(items.spliterator(), false)
+                    .map(item -> new Book(item.getId(), item.getName(), item.getAuthor(), item.getDescription(), item.getRating(),
+                            item.getImagePath(), item.isAvailable()))
+                    .collect(Collectors.toList());
     }
 
     @PostMapping("/catalog/borrow")

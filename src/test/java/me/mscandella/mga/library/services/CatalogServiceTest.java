@@ -1,10 +1,10 @@
 package me.mscandella.mga.library.services;
 
 import me.mscandella.mga.library.dao.Book;
-import me.mscandella.mga.library.dao.Rating;
+import me.mscandella.mga.library.rating.dao.Rating;
 import me.mscandella.mga.library.models.BookWithRating;
 import me.mscandella.mga.library.repositories.BookRepository;
-import me.mscandella.mga.library.repositories.RatingRepository;
+import me.mscandella.mga.library.rating.repositories.RatingRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

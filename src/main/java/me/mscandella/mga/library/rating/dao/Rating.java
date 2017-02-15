@@ -1,4 +1,4 @@
-package me.mscandella.mga.library.dao;
+package me.mscandella.mga.library.rating.dao;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

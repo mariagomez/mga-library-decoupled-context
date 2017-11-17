@@ -51,5 +51,6 @@ dependencies {
 	compile "org.flywaydb:flyway-core:4.2.0"
 	testCompile("junit:junit")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile('org.seleniumhq.selenium:selenium-java:3.0.1')
+	testCompile('org.seleniumhq.selenium:selenium-java:3.7.1')
+	testCompile('net.sourceforge.htmlunit:htmlunit')
 }

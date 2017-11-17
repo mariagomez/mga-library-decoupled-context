@@ -1,9 +1,9 @@
-package me.mscandella.mga.library.controllers;
+package es.codemotion.madrid.library.controllers;
 
-import me.mscandella.mga.library.dao.Item;
-import me.mscandella.mga.library.models.Book;
-import me.mscandella.mga.library.models.BorrowData;
-import me.mscandella.mga.library.repositories.BookRepository;
+import es.codemotion.madrid.library.dao.Item;
+import es.codemotion.madrid.library.models.Book;
+import es.codemotion.madrid.library.models.BorrowData;
+import es.codemotion.madrid.library.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

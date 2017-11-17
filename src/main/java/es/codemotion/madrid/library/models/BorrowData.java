@@ -1,4 +1,4 @@
-package me.mscandella.mga.library.models;
+package es.codemotion.madrid.library.models;
 
 public class BorrowData {
 

@@ -1,4 +1,4 @@
-package me.mscandella.mga.library.dao;
+package es.codemotion.madrid.library.dao;
 
 import javax.persistence.*;
 

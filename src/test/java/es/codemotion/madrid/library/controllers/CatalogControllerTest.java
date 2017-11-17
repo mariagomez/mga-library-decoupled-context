@@ -1,8 +1,8 @@
-package me.mscandella.mga.library.controllers;
+package es.codemotion.madrid.library.controllers;
 
-import me.mscandella.mga.library.dao.Item;
-import me.mscandella.mga.library.models.Book;
-import me.mscandella.mga.library.repositories.BookRepository;
+import es.codemotion.madrid.library.dao.Item;
+import es.codemotion.madrid.library.repositories.BookRepository;
+import es.codemotion.madrid.library.models.Book;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

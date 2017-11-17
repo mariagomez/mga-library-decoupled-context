@@ -1,11 +1,11 @@
-package me.mscandella.mga.library;
+package es.codemotion.madrid.library;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import me.mscandella.mga.library.controllers.CatalogController;
-import me.mscandella.mga.library.controllers.IndexController;
-import me.mscandella.mga.library.dao.Item;
-import me.mscandella.mga.library.repositories.BookRepository;
+import es.codemotion.madrid.library.controllers.IndexController;
+import es.codemotion.madrid.library.dao.Item;
+import es.codemotion.madrid.library.repositories.BookRepository;
+import es.codemotion.madrid.library.controllers.CatalogController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

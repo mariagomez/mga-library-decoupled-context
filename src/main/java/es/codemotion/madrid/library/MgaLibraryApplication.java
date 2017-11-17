@@ -1,4 +1,4 @@
-package me.mscandella.mga.library;
+package es.codemotion.madrid.library;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

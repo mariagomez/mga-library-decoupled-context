@@ -1,6 +1,6 @@
-package me.mscandella.mga.library.repositories;
+package es.codemotion.madrid.library.repositories;
 
-import me.mscandella.mga.library.dao.Item;
+import es.codemotion.madrid.library.dao.Item;
 import org.springframework.data.repository.CrudRepository;
 
 public interface BookRepository extends CrudRepository<Item, Long> {

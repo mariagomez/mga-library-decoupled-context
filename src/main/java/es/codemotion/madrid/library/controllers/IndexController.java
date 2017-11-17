@@ -1,4 +1,4 @@
-package me.mscandella.mga.library.controllers;
+package es.codemotion.madrid.library.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

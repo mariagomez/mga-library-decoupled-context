@@ -1,4 +1,4 @@
-package me.mscandella.mga.library.controllers;
+package es.codemotion.madrid.library.controllers;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

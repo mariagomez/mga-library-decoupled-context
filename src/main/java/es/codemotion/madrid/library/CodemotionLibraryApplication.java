@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MgaLibraryApplication {
+public class CodemotionLibraryApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MgaLibraryApplication.class, args);
+		SpringApplication.run(CodemotionLibraryApplication.class, args);
 	}
 }

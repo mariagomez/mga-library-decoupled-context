@@ -2,8 +2,10 @@ package es.codemotion.madrid.library;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import es.codemotion.madrid.library.catalog.CatalogService;
 import es.codemotion.madrid.library.controllers.IndexController;
 import es.codemotion.madrid.library.dao.Item;
+import es.codemotion.madrid.library.models.Book;
 import es.codemotion.madrid.library.repositories.BookRepository;
 import es.codemotion.madrid.library.controllers.CatalogController;
 import org.junit.Test;
@@ -27,12 +29,14 @@ public class IndexPageTest {
     private WebClient webClient;
 
     @MockBean
+    private CatalogService catalogService;
+    @MockBean
     private BookRepository bookRepository;
 
     @Test
     public void shouldShowCatalogWhenRequestingIndex() throws Exception {
-        Item item = mock(Item.class);
-        given(bookRepository.findAll()).willReturn(Arrays.asList(item));
+        Book book = mock(Book.class);
+        given(catalogService.getAllBooks()).willReturn(Arrays.asList(book));
 
         HtmlPage page = this.webClient.getPage("/");
         assertThat(page.getBody().getTextContent()).contains("Catalog");

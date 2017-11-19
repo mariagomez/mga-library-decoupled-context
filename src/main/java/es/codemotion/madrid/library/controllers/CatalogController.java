@@ -1,5 +1,6 @@
 package es.codemotion.madrid.library.controllers;
 
+import es.codemotion.madrid.library.catalog.CatalogService;
 import es.codemotion.madrid.library.dao.Item;
 import es.codemotion.madrid.library.models.Book;
 import es.codemotion.madrid.library.models.BorrowData;
@@ -12,8 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Controller
 public class CatalogController {
@@ -21,21 +20,15 @@ public class CatalogController {
     @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    private CatalogService catalogService;
+
     @RequestMapping("/catalog")
     public String catalog(ModelMap model) {
-        List<Book> books = getAllBooks();
+        List<Book> books = catalogService.getAllBooks();
         model.addAttribute("books", books);
         model.addAttribute("data", new BorrowData());
         return "catalog";
-    }
-
-    private List<Book> getAllBooks() {
-        Iterable<Item> items = bookRepository.findAll();
-        List<Book> books = StreamSupport.stream(items.spliterator(), false)
-                .map(item -> new Book(item.getId(), item.getName(), item.getAuthor(), item.getDescription(), item.getRating(),
-                        item.getImagePath(), item.isAvailable()))
-                .collect(Collectors.toList());
-        return books;
     }
 
     @PostMapping("/catalog/borrow")

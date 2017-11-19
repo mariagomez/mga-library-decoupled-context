@@ -2,6 +2,7 @@ package es.codemotion.madrid.library;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import es.codemotion.madrid.library.borrow.BorrowService;
 import es.codemotion.madrid.library.catalog.CatalogService;
 import es.codemotion.madrid.library.controllers.IndexController;
 import es.codemotion.madrid.library.dao.Item;
@@ -30,6 +31,8 @@ public class IndexPageTest {
 
     @MockBean
     private CatalogService catalogService;
+    @MockBean
+    private BorrowService borrowService;
     @MockBean
     private BookRepository bookRepository;
 

@@ -1,5 +1,6 @@
 package es.codemotion.madrid.library.controllers;
 
+import es.codemotion.madrid.library.catalog.CatalogService;
 import es.codemotion.madrid.library.dao.Item;
 import es.codemotion.madrid.library.repositories.BookRepository;
 import es.codemotion.madrid.library.models.Book;
@@ -33,6 +34,8 @@ public class CatalogControllerTest {
 
     @MockBean
     private BookRepository bookRepository;
+    @MockBean
+    private CatalogService catalogService;
     private final String name = "Lorem Ipsum";
     private final String description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas placerat odio felis, vel bibendum justo pulvinar nec. Nam et consectetur turpis, sed venenatis diam. Nunc consectetur ultrices nisl venenatis venenatis. Integer venenatis suscipit lorem quis varius. Aliquam quis erat erat. Nunc aliquet nulla in turpis imperdiet, eget condimentum tellus ornare. Pellentesque fringilla dictum massa, et dapibus purus elementum vitae. Aliquam erat volutpat. Donec libero ante, molestie porta odio ut, lobortis finibus urna. Aenean interdum massa elit, ut feugiat urna rhoncus eu. Morbi ac ex ut lorem cursus congue. Mauris dignissim libero et ullamcorper bibendum. Ut turpis metus, viverra et cursus eget, suscipit ut arcu. Morbi sit amet vehicula est. Quisque sodales sapien elit, in pharetra erat elementum ut. In hac habitasse platea dictumst.";
     private final int rating = 3;
@@ -44,8 +47,8 @@ public class CatalogControllerTest {
     public void shouldReturnAListOfBooks() throws Exception {
         Item item = new Item(name, author, description, rating, available, imagePath);
         Book book = new Book(item.getId(), name, author, description, rating, imagePath, available);
-        Iterable<Item> items = Arrays.asList(item);
-        when(bookRepository.findAll()).thenReturn(items);
+        List<Book> books = Arrays.asList(book);
+        when(catalogService.getAllBooks()).thenReturn(books);
 
         MvcResult mvcResult = mockMvc.perform(get("/catalog"))
                 .andExpect(view().name("catalog"))

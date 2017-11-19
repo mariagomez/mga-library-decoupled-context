@@ -4,9 +4,11 @@ jdk:
 
 addons:
   sonarcloud:
+    organization: joragupra-github
     token:
       secure: $SONAR_TOKEN
     branches :
+      - master
       - initial
 
 script:

@@ -3,6 +3,7 @@ package es.codemotion.madrid.library.controllers;
 import es.codemotion.madrid.library.catalog.CatalogService;
 import es.codemotion.madrid.library.dao.Item;
 import es.codemotion.madrid.library.models.Book;
+import es.codemotion.madrid.library.models.BookWithAvailability;
 import es.codemotion.madrid.library.models.BorrowData;
 import es.codemotion.madrid.library.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 @Controller
 public class CatalogController {
@@ -26,7 +30,10 @@ public class CatalogController {
     @RequestMapping("/catalog")
     public String catalog(ModelMap model) {
         List<Book> books = catalogService.getAllBooks();
-        model.addAttribute("books", books);
+        List<BookWithAvailability> booksWithAvailability = StreamSupport.stream(books.spliterator(), false)
+                .map(book -> new BookWithAvailability(book.getId(), book.getName(), book.getAuthor(), book.getDescription(), book.getRating(), book.getImagePath(), book.isAvailable()))
+                .collect(Collectors.toList());
+        model.addAttribute("books", booksWithAvailability);
         model.addAttribute("data", new BorrowData());
         return "catalog";
     }

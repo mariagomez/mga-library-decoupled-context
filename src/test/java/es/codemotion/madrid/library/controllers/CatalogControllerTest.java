@@ -2,6 +2,7 @@ package es.codemotion.madrid.library.controllers;
 
 import es.codemotion.madrid.library.catalog.CatalogService;
 import es.codemotion.madrid.library.dao.Item;
+import es.codemotion.madrid.library.models.BookWithAvailability;
 import es.codemotion.madrid.library.repositories.BookRepository;
 import es.codemotion.madrid.library.models.Book;
 import org.junit.Test;
@@ -47,6 +48,7 @@ public class CatalogControllerTest {
     public void shouldReturnAListOfBooks() throws Exception {
         Item item = new Item(name, author, description, rating, available, imagePath);
         Book book = new Book(item.getId(), name, author, description, rating, imagePath, available);
+        BookWithAvailability bookWithAvailability = new BookWithAvailability(item.getId(), name, author, description, rating, imagePath, available);
         List<Book> books = Arrays.asList(book);
         when(catalogService.getAllBooks()).thenReturn(books);
 
@@ -58,7 +60,7 @@ public class CatalogControllerTest {
         ModelAndView modelAndView = mvcResult.getModelAndView();
         List actualBooks = (List) modelAndView.getModel().get("books");
 
-        assertThat(actualBooks.get(0), samePropertyValuesAs(book));
+        assertThat(actualBooks.get(0), samePropertyValuesAs(bookWithAvailability));
     }
 
     @Test

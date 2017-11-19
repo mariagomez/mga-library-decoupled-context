@@ -6,7 +6,10 @@ import es.codemotion.madrid.library.repositories.BookRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +17,17 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
-@RunWith(JUnit4.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class CatalogServiceTest {
 
+    @Autowired
     private CatalogService catalogService;
-    private BookRepository bookRepository = mock(BookRepository.class);
+    @MockBean
+    private BookRepository bookRepository;
     private Item first = new Item("First book", "Author", "Description", 1, true, "path");
     private Item second = new Item("Second book", "Author", "Description", 5, true, "path");
     private List<Item> completeCollection = new ArrayList() {{
@@ -31,7 +37,7 @@ public class CatalogServiceTest {
 
     @Before
     public void setUp() {
-        catalogService = new CatalogService();
+        initMocks(this);
         when(bookRepository.findAll()).thenReturn(completeCollection);
     }
 

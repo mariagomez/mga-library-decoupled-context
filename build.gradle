@@ -39,6 +39,15 @@ test {
 	}
 }
 
+jacocoTestReport {
+	reports {
+		xml.enabled = true
+		html.enabled = true
+	}
+}
+
+check.dependsOn jacocoTestReport
+
 dependencies {
 	compile("org.springframework.boot:spring-boot-starter-web") {
 		exclude module: "spring-boot-starter-tomcat"
